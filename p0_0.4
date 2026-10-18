@@ -1,0 +1,33 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: HTTP POST con datos de formulario
+    activate server
+    Note over server: El servidor crea la nota y la añade a la lista
+    server-->>browser: HTTP 302 (REDIRECCIÓN a /notes)
+    deactivate server
+
+    browser->>server: HTTP GET /notes
+    activate server
+    server-->>browser:  HTML
+    deactivate server
+
+    browser->>server: HTTP GET main.css
+    activate server
+    server-->>browser:  archivo CSS
+    deactivate server
+
+    browser->>server: HTTP GET main.js
+    activate server
+    server-->>browser: archivo JavaScript
+    deactivate server
+
+    Note right of browser: El navegador corre el js para pedir los json
+
+    browser->>server: HTTP GET data.json
+    activate server
+    server-->>browser: datos json
+    deactivate server
+
+    Note right of browser: El navegador ejecuta funcion de respuesta(callback) y renderiza las notas en pantalla
